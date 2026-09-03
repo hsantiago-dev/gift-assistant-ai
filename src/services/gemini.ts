@@ -32,10 +32,10 @@ function getGenAI(): GoogleGenAI {
     return genai;
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
   if (!apiKey) {
     throw new GiftAIError(
-      'GEMINI_API_KEY não está definida. Configure a chave no arquivo .env (veja .env.example).',
+      'EXPO_PUBLIC_GEMINI_API_KEY não está definida. Configure a chave no arquivo .env (veja .env.example).',
       'MISSING_API_KEY',
     );
   }

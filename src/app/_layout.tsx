@@ -23,6 +23,7 @@ export default function RootLayout() {
       <AnimatedSplashOverlay />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
+        <Stack.Screen name="results" />
       </Stack>
     </ThemeProvider>
   );

@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Platform, ScrollView, StyleSheet, TextInput } from 'react-native';
+import { ActivityIndicator, Platform, ScrollView, StyleSheet, TextInput } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
+import { MotiView } from 'moti';
 
 import { ChipGroup } from '@/components/chip-group';
 import { PrimaryButton } from '@/components/primary-button';
@@ -18,6 +20,7 @@ import {
   type OccasionOption,
 } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import { generateSuggestion } from '@/services/gemini';
 
 function pickPlaceholder(): string {
   return Placeholders[Math.floor(Math.random() * Placeholders.length)];
@@ -26,11 +29,15 @@ function pickPlaceholder(): string {
 export default function HomeScreen() {
   const safeAreaInsets = useSafeAreaInsets();
   const theme = useTheme();
+  const router = useRouter();
 
   const [text, setText] = useState('');
   const [budget, setBudget] = useState<BudgetOption | null>(null);
   const [occasion, setOccasion] = useState<OccasionOption | null>(null);
   const [placeholder] = useState(pickPlaceholder);
+
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const insets = {
     ...safeAreaInsets,
@@ -50,10 +57,31 @@ export default function HomeScreen() {
     },
   });
 
-  const canSubmit = text.trim().length > 0;
+  const canSubmit = text.trim().length > 0 && !loading;
 
-  const handleGenerate = () => {
-    // Fase sem IA: o handler fica preparado, mas ainda não dispara rede nem navega.
+  const handleGenerate = async () => {
+    if (!canSubmit) return;
+
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const suggestions = await generateSuggestion({
+        text,
+        budget: budget ?? undefined,
+        occasion: occasion ?? undefined,
+      });
+
+      router.push({
+        pathname: '/results',
+        params: { suggestions: JSON.stringify(suggestions) },
+      });
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : 'Ocorreu um erro inesperado ao gerar sugestões.';
+      setErrorMessage(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -102,11 +130,35 @@ export default function HomeScreen() {
           onChange={setOccasion}
         />
 
-        <PrimaryButton
-          label="Gerar sugestões"
-          onPress={handleGenerate}
-          disabled={!canSubmit}
-        />
+        {errorMessage && (
+          <ThemedView style={[styles.errorContainer, { backgroundColor: theme.backgroundElement }]}>
+            <ThemedText style={[styles.errorText, { color: theme.primary }]}>
+              {errorMessage}
+            </ThemedText>
+            <PrimaryButton
+              label="Tentar novamente"
+              onPress={handleGenerate}
+            />
+          </ThemedView>
+        )}
+
+        {loading ? (
+          <MotiView
+            from={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={theme.primary} />
+            <ThemedText type="smallBold" themeColor="textSecondary">
+              Gerando sugestões com IA...
+            </ThemedText>
+          </MotiView>
+        ) : (
+          <PrimaryButton
+            label="Gerar sugestões"
+            onPress={handleGenerate}
+            disabled={!canSubmit}
+          />
+        )}
       </ThemedView>
     </ScrollView>
   );
@@ -147,5 +199,21 @@ const styles = StyleSheet.create({
     fontFamily: DMSans.medium,
     fontSize: 16,
     textAlignVertical: 'top',
+  },
+  errorContainer: {
+    borderRadius: Radius.card,
+    padding: Spacing.three,
+    gap: Spacing.two,
+    alignItems: 'center',
+  },
+  errorText: {
+    fontFamily: DMSans.medium,
+    textAlign: 'center',
+  },
+  loadingContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: Spacing.three,
+    gap: Spacing.two,
   },
 });
