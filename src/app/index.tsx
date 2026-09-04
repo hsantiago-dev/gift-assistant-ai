@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, Platform, ScrollView, StyleSheet, TextInput } from 'react-native';
+import { ActivityIndicator, Platform, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { MotiView } from 'moti';
@@ -49,10 +49,19 @@ export default function HomeScreen() {
       paddingTop: insets.top,
       paddingLeft: insets.left,
       paddingRight: insets.right,
-      paddingBottom: insets.bottom,
     },
     web: {
       paddingTop: Spacing.six,
+    },
+  });
+
+  const footerPlatformStyle = Platform.select({
+    android: {
+      paddingLeft: insets.left,
+      paddingRight: insets.right,
+      paddingBottom: insets.bottom,
+    },
+    web: {
       paddingBottom: Spacing.four,
     },
   });
@@ -85,97 +94,100 @@ export default function HomeScreen() {
   };
 
   return (
-    <ScrollView
-      style={[styles.scrollView, { backgroundColor: theme.background }]}
-      contentInset={insets}
-      contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
-      <ThemedView style={styles.container}>
-        <ThemedText style={styles.title} themeColor="text">
-          O que você quer presentear?
-        </ThemedText>
-        <ThemedText type="default" style={styles.subtitle} themeColor="textSecondary">
-          Conte sobre a pessoa e a ocasião para receber ideias personalizadas.
-        </ThemedText>
+    <View style={[styles.root, { backgroundColor: theme.background }]}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
+        <ThemedView style={styles.container}>
+          <ThemedText style={styles.title} themeColor="text">
+            O que você quer presentear?
+          </ThemedText>
+          <ThemedText type="default" style={styles.subtitle} themeColor="textSecondary">
+            Conte sobre a pessoa e a ocasião para receber ideias personalizadas.
+          </ThemedText>
 
-        <ThemedText type="smallBold" style={styles.label} themeColor="textSecondary">
-          Descreva o pedido
-        </ThemedText>
-        <TextInput
-          style={[
-            styles.input,
-            { backgroundColor: theme.backgroundElement, color: theme.text },
-          ]}
-          placeholder={placeholder}
-          placeholderTextColor={theme.textSecondary}
-          multiline
-          value={text}
-          onChangeText={setText}
-        />
-
-        <ThemedText type="smallBold" style={styles.label} themeColor="textSecondary">
-          Orçamento
-        </ThemedText>
-        <ChipGroup
-          options={BudgetOptions}
-          selected={budget}
-          onChange={setBudget}
-        />
-
-        <ThemedText type="smallBold" style={styles.label} themeColor="textSecondary">
-          Ocasião
-        </ThemedText>
-        <ChipGroup
-          options={OccasionOptions}
-          selected={occasion}
-          onChange={setOccasion}
-        />
-
-        {errorMessage && (
-          <ThemedView style={[styles.errorContainer, { backgroundColor: theme.backgroundElement }]}>
-            <ThemedText style={[styles.errorText, { color: theme.primary }]}>
-              {errorMessage}
-            </ThemedText>
-            <PrimaryButton
-              label="Tentar novamente"
-              onPress={handleGenerate}
-            />
-          </ThemedView>
-        )}
-
-        {loading ? (
-          <MotiView
-            from={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={theme.primary} />
-            <ThemedText type="smallBold" themeColor="textSecondary">
-              Gerando sugestões com IA...
-            </ThemedText>
-          </MotiView>
-        ) : (
-          <PrimaryButton
-            label="Gerar sugestões"
-            onPress={handleGenerate}
-            disabled={!canSubmit}
+          <ThemedText type="smallBold" style={styles.label} themeColor="textSecondary">
+            Descreva o pedido
+          </ThemedText>
+          <TextInput
+            style={[
+              styles.input,
+              { backgroundColor: theme.backgroundElement, color: theme.text },
+            ]}
+            placeholder={placeholder}
+            placeholderTextColor={theme.textSecondary}
+            multiline
+            value={text}
+            onChangeText={setText}
           />
-        )}
-      </ThemedView>
-    </ScrollView>
+
+          <ThemedText type="smallBold" style={styles.label} themeColor="textSecondary">
+            Orçamento
+          </ThemedText>
+          <ChipGroup
+            options={BudgetOptions}
+            selected={budget}
+            onChange={setBudget}
+          />
+
+          <ThemedText type="smallBold" style={styles.label} themeColor="textSecondary">
+            Ocasião
+          </ThemedText>
+          <ChipGroup
+            options={OccasionOptions}
+            selected={occasion}
+            onChange={setOccasion}
+          />
+
+          {errorMessage && (
+            <ThemedView style={[styles.errorContainer, { backgroundColor: theme.backgroundElement }]}>
+              <ThemedText style={[styles.errorText, { color: theme.primary }]}>
+                {errorMessage}
+              </ThemedText>
+            </ThemedView>
+          )}
+        </ThemedView>
+      </ScrollView>
+
+      <View style={[styles.footer, { backgroundColor: theme.background }, footerPlatformStyle]}>
+        <View style={styles.footerInner}>
+          {loading ? (
+            <MotiView
+              from={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color={theme.primary} />
+              <ThemedText type="smallBold" themeColor="textSecondary">
+                Gerando sugestões com IA...
+              </ThemedText>
+            </MotiView>
+          ) : (
+            <PrimaryButton
+              label="Gerar sugestões"
+              onPress={handleGenerate}
+              disabled={!canSubmit}
+            />
+          )}
+        </View>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   scrollView: {
     flex: 1,
   },
   contentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingHorizontal: Spacing.four,
+    flexGrow: 1,
   },
   container: {
     maxWidth: MaxContentWidth,
     width: '100%',
+    alignSelf: 'center',
     gap: Spacing.three,
     paddingVertical: Spacing.four,
     paddingHorizontal: Spacing.four,
@@ -210,10 +222,21 @@ const styles = StyleSheet.create({
     fontFamily: DMSans.medium,
     textAlign: 'center',
   },
+  footer: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: 'transparent',
+    width: '100%',
+  },
+  footerInner: {
+    maxWidth: MaxContentWidth,
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: Spacing.four,
+    paddingTop: Spacing.three,
+  },
   loadingContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: Spacing.three,
     gap: Spacing.two,
   },
 });
