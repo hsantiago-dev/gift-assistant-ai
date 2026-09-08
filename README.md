@@ -1,56 +1,111 @@
-# Welcome to your Expo app 👋
+# Gift Assistant AI
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+[![Expo](https://img.shields.io/badge/Expo-SDK%2057-000020?logo=expo&logoColor=white)](https://expo.dev)
+[![React Native](https://img.shields.io/badge/React%20Native-0.86-61DAFB?logo=react&logoColor=white)](https://reactnative.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-## Get started
+> Aplicativo mobile que utiliza inteligência artificial (Google Gemini) para sugerir presentes personalizados com base em texto livre e filtros opcionais de orçamento e ocasião.
 
-1. Install dependencies
+---
+
+## Contexto acadêmico
+
+Este projeto foi desenvolvido como trabalho de pós-graduação na disciplina de **Dispositivos Móveis**. O objetivo é consolidar o aprendizado prático sobre:
+
+- **Google Gemini SDK** — integração com IA generativa via `@google/genai`
+- **Expo Router** — roteamento baseado em arquivos
+- **Moti + Reanimated** — animações fluidas e microinterações
+- **React 19 + React Native 0.86** — hooks, estado e ciclo de vida
+- **TypeScript** — tipagem estática e segurança em tempo de compilação
+
+---
+
+## Funcionalidades
+
+- **Entrada de texto livre** — o usuário descreve o que procura em frases naturais
+- **Chips opcionais** — seleção de orçamento e/ou ocasião (seleção única, sem obrigatoriedade)
+- **Placeholder dinâmico** — a frase de exemplo do campo de texto varia a cada abertura da tela
+- **Geração via IA** — envio do prompt à API Gemini, que responde com JSON estruturado
+- **5 sugestões de presentes** — cada uma com nome e justificativa personalizada
+- **Carrossel de cards** — visualização das sugestões com animações de entrada
+- **Estado de loading** — feedback visual com animação Moti durante a consulta à IA
+- **Estado de erro** — tratamento de falhas de rede/timeout/API com opção "Tentar novamente"
+
+---
+
+## Como executar
+
+### Pré-requisitos
+
+- Node.js 18+
+- npm ou yarn
+- Expo CLI (`npm install -g expo-cli`) ou Expo Go instalado no dispositivo
+- Chave de API do Google Gemini (veja seção [Configuração de API Keys](#configuração-de-api-keys))
+
+### Passo a passo
+
+1. **Clone o repositório**
+
+   ```bash
+   git clone <url-do-repositorio>
+   cd gift-assistant-ai
+   ```
+
+2. **Instale as dependências**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Configure as chaves** (veja seção [Configuração de API Keys](#configuração-de-api-keys))
+
+4. **Inicie o app**
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+5. **Abra no dispositivo** — escaneie o QR code com o Expo Go ou rode no emulador/simulador
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Configuração de API Keys
 
-## Get a fresh project
+As chaves sensíveis **não** devem ser commitadas. Use o arquivo `.env` na raiz do projeto (já ignorado pelo Git).
 
-When you're ready, run:
+### 1. Crie o arquivo `.env`
 
-```bash
-npm run reset-project
+```
+# Chave da API do Google Gemini (obrigatório)
+EXPO_PUBLIC_GEMINI_API_KEY=sua_chave_gemini_aqui
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Google Gemini API
 
-### Other setup steps
+1. Acesse o [Google AI Studio](https://aistudio.google.com/apikey)
+2. Crie uma chave de API
+3. Cole em `EXPO_PUBLIC_GEMINI_API_KEY` no arquivo `.env`
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+---
 
-## Learn more
+## Referências
 
-To learn more about developing your project with Expo, look at the following resources:
+- [Documentação Expo](https://docs.expo.dev)
+- [Expo Router](https://docs.expo.dev/router/introduction)
+- [React Native](https://reactnative.dev/docs/getting-started)
+- [Google Gemini SDK](https://ai.google.dev/docs)
+- [Moti — Animações](https://moti.fabric.dev)
+- [Design System Candy](./docs/DESIGN.md)
+- [Especificação Funcional](./docs/OVERVIEW.md)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## Autor
 
-Join our community of developers creating universal apps.
+**Nome:** Henrick Santiago
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Instituição:** UTFPR
+
+- LinkedIn: [linkedin.com/in/hsantiago-dev](https://www.linkedin.com/in/hsantiago-dev/)
+- GitHub: [@hsantiago-dev](https://github.com/hsantiago-dev)

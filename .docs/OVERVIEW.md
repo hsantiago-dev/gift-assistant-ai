@@ -8,7 +8,7 @@ Princípio seguido: **entrada de dados do usuário → processamento por IA → 
 
 ## 2. Ideia do produto
 
-Um app simples e rápido de usar: o usuário descreve, com suas próprias palavras, para quem e por que está procurando um presente. Pode complementar com dois filtros opcionais (orçamento e ocasião). A IA gera 5 sugestões com uma breve justificativa cada, exibidas em um carrossel de cards. Se as sugestões não agradarem, o usuário pode pedir para gerar novamente — e a IA é instruída a não repetir itens já sugeridos — com um limite de 3 regenerações por busca.
+Um app simples e rápido de usar: o usuário descreve, com suas próprias palavras, para quem e por que está procurando um presente. Pode complementar com dois filtros opcionais (orçamento e ocasião). A IA gera 5 sugestões com uma breve justificativa cada, exibidas em um carrossel de cards.
 
 ## 3. Caso de uso do sistema
 
@@ -23,18 +23,9 @@ Um app simples e rápido de usar: o usuário descreve, com suas próprias palavr
 6. App exibe as sugestões na ResultsScreen:
    - Como **carrossel**, se houver mais de 1 sugestão.
    - Como card único centralizado, se houver apenas 1 sugestão.
-7. Botão **"Gerar novamente"** fica habilitado, mostrando quantas tentativas restam (inicialmente 3).
-8. Se o usuário não gostar, toca em **"Gerar novamente"**:
-   - App reenvia o prompt original acrescido da lista de itens já sugeridos, instruindo a IA a não repeti-los.
-   - Contador de regenerações decrementa (3 → 2 → 1 → 0).
-   - Ao atingir 0, o botão é desabilitado.
-9. A qualquer momento, o usuário pode tocar em **"Limpar"** para resetar o formulário (texto, chips, resultados e contador de regenerações) e voltar ao estado inicial.
 
 ### Fluxo alternativo — erro de requisição
-Falha de rede, timeout ou erro da API → app exibe mensagem amigável com opção de tentar novamente. Esse erro **não consome** tentativa de regeneração.
-
-### Fluxo alternativo — limite de regenerações atingido
-Usuário tenta gerar uma 4ª vez → ação bloqueada, botão desabilitado, com mensagem do tipo *"Limite de regenerações atingido. Toque em Limpar para uma nova busca."*
+Falha de rede, timeout ou erro da API → app exibe mensagem amigável com opção de tentar novamente.
 
 ## 4. Requisitos funcionais
 
@@ -47,11 +38,7 @@ Usuário tenta gerar uma 4ª vez → ação bloqueada, botão desabilitado, com 
 | RF05 | O app deve montar um prompt combinando texto livre + chips selecionados e enviá-lo à API de IA. |
 | RF06 | O app deve exibir a lista de sugestões retornadas (nome + justificativa) em formato de **carrossel**, quando houver mais de 1 sugestão. |
 | RF07 | O app deve exibir indicador de carregamento durante a chamada à API. |
-| RF08 | O app deve tratar erros de requisição (sem internet, timeout, erro da API) com mensagem clara e opção de tentar novamente, sem consumir tentativa de regeneração. |
-| RF09 | O app deve permitir **"Gerar novamente"**, reenviando o prompt com a lista de itens já sugeridos anteriormente, instruindo a IA a não repeti-los. |
-| RF10 | O app deve limitar **"Gerar novamente"** a no máximo 3 usos consecutivos por busca, desabilitando o botão ao atingir o limite. |
-| RF11 | O app deve exibir ao usuário quantas regenerações ainda restam (ex: "2 tentativas restantes"). |
-| RF12 | O app deve oferecer um botão **"Limpar"** que reseta texto, chips, resultados e contador de regenerações, retornando ao estado inicial. |
+| RF08 | O app deve tratar erros de requisição (sem internet, timeout, erro da API) com mensagem clara e opção de tentar novamente. |
 
 ## 5. Requisitos não funcionais
 
@@ -61,7 +48,7 @@ Usuário tenta gerar uma 4ª vez → ação bloqueada, botão desabilitado, com 
 | RNF02 | Código organizado em pastas (`components`, `screens`, `services`, `styles`, `constants`). |
 | RNF03 | Chave da API não deve ficar hardcoded/exposta no repositório (uso de `.env` + `.gitignore`). |
 | RNF04 | Interface simples, com boa hierarquia visual (título, campo de texto, chips, carrossel de resultados). |
-| RNF05 | Feedback visual claro para: carregando, erro e limite de regenerações atingido. |
+| RNF05 | Feedback visual claro para: carregando e erro. |
 | RNF06 | Transições e microinterações (loading, entrada dos cards, troca no carrossel) devem usar animações leves via Moti, sem prejudicar a performance. |
 
 ## 6. Detalhes técnicos já definidos
@@ -95,35 +82,6 @@ Responda APENAS em JSON, sem texto adicional:
 [{"nome": "", "justificativa": ""}]
 ```
 
-### 6.4 Estrutura de prompt — regeneração
-
-```
-Texto do usuário: "{texto_livre}"
-Orçamento: {chip_orcamento || "não informado"}
-Ocasião: {chip_ocasiao || "não informada"}
-
-Já foram sugeridos os seguintes itens, NÃO os repita: {itensJaSugeridos.join(", ")}
-
-Sugira 5 novas ideias de presente, diferentes das anteriores.
-Responda APENAS em JSON, sem texto adicional:
-[{"nome": "", "justificativa": ""}]
-```
-
-### 6.5 Controle de estado (regeneração e limite)
-
-```js
-const [itensJaSugeridos, setItensJaSugeridos] = useState([]);
-const [tentativasRestantes, setTentativasRestantes] = useState(3);
-```
-
-A cada regeneração bem-sucedida:
-```js
-setItensJaSugeridos(prev => [...prev, ...novosNomes]);
-setTentativasRestantes(prev => prev - 1);
-```
-
-O botão "Limpar" reseta todos esses estados, além do texto e dos chips.
-
 ## 7. Stack técnica
 
 | Camada | Tecnologia |
@@ -140,4 +98,4 @@ O botão "Limpar" reseta todos esses estados, além do texto e dos chips.
 ## 8. Estrutura de telas
 
 1. **HomeScreen** — campo de texto livre, chips de orçamento e ocasião, botão "Gerar sugestões".
-2. **ResultsScreen** — carrossel de sugestões (ou card único), contador de tentativas, botões "Gerar novamente" e "Limpar", estados de loading e erro.
+2. **ResultsScreen** — carrossel de sugestões (ou card único), botão "Voltar", estados de loading/erro.

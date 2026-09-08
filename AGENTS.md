@@ -13,7 +13,6 @@
 App que recebe texto livre do usuário + 2 chips opcionais (orçamento e ocasião),
 envia à API Gemini e exibe 5 sugestões de presentes personalizadas com
 justificativa, em carrossel de cards. Fluxo: **entrada → IA → resposta JSON**.
-Se o usuário não gostar, pode regenerar (sem repetir itens) até 3 vezes por busca.
 
 ## Stack
 
@@ -27,8 +26,8 @@ Se o usuário não gostar, pode regenerar (sem repetir itens) até 3 vezes por b
 
 ```
 src/app/index.tsx       → HomeScreen (texto livre, chips, botão "Gerar sugestões")
-src/app/results.tsx     → ResultsScreen (carrossel/card único, contador, "Gerar novamente", "Limpar", estados de loading/erro)
-src/services/gemini.ts  → montagem dos prompts (6.3/6.4 do OVERVIEW) + chamada à API
+src/app/results.tsx     → ResultsScreen (carrossel/card único, "Voltar", estados de loading/erro)
+src/services/gemini.ts  → montagem dos prompts (6.3 do OVERVIEW) + chamada à API
 src/constants/          → tema Candy, opções dos chips, placeholders variáveis
 src/components/         → componentes reutilizáveis (Card, Chip, indicadores...)
 src/hooks/              → hooks compartilhados
@@ -37,13 +36,9 @@ src/hooks/              → hooks compartilhados
 ## Regras de negócio (não negociáveis)
 
 1. A IA deve responder **APENAS JSON**: `[{"nome": "", "justificativa": ""}]` — sempre 5 sugestões
-2. Máx. **3 regenerações** por busca; ao atingir 0, desabilitar o botão com mensagem amigável
-3. Erro de requisição (rede/timeout/API) **NÃO consome** tentativa — oferece "Tentar novamente"
-4. Regeneração reenvia o prompt original + lista de itens já sugeridos, instruindo a não repetir
-5. Exibir contagem restante ao usuário ("2 tentativas restantes")
-6. "Limpar" reseta texto, chips, resultados e contador de regenerações
-7. Placeholder do campo de texto **varia a cada abertura** da tela (frases em `constants`)
-8. Chips são de seleção única e opcionais; sem eles, a IA trabalha só com o texto livre
+2. Erro de requisição (rede/timeout/API) oferece "Tentar novamente"
+3. Placeholder do campo de texto **varia a cada abertura** da tela (frases em `constants`)
+4. Chips são de seleção única e opcionais; sem eles, a IA trabalha só com o texto livre
 
 ## Design system "Candy"
 
@@ -53,9 +48,9 @@ src/hooks/              → hooks compartilhados
 - Sombras **tingidas** com a cor do elemento (~15–20% opacidade), nunca cinza puro
 - Microinterações **bouncy/spring** via Moti (scale leve, ease-out) — nada rígido
 - Tokens completos: `docs/DESIGN.md`; referência visual das 2 telas + estados: `docs/PROTOTYPE.md`
-- Feedback visual obrigatório para: carregando, erro e limite de regenerações atingido
+- Feedback visual obrigatório para: carregando e erro
 
 ## Segurança
 
 - `GEMINI_API_KEY` apenas em `.env` (fora do git); nunca hardcoded no código
-- Prompts canônicos definidos nas seções 6.3/6.4 de `docs/OVERVIEW.md` — só alterar se necessário
+- Prompts canônicos definidos na seção 6.3 de `docs/OVERVIEW.md` — só alterar se necessário

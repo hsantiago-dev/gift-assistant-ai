@@ -428,21 +428,6 @@
 <div class="w-2 h-2 rounded-full bg-surface-variant transition-all duration-300"></div>
 </div>
 </section>
-<!-- Secondary Actions -->
-<section class="px-container-padding mt-section-gap flex flex-col items-center gap-6">
-<div class="text-center">
-<p class="font-label-md text-label-md text-secondary mb-4">2 tentativas restantes</p>
-<div class="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
-<button class="w-full sm:w-auto px-8 py-4 border-2 border-primary text-primary font-label-md text-label-md rounded-full hover:bg-primary/5 active:scale-95 transition-all flex items-center justify-center gap-2">
-<span class="material-symbols-outlined">refresh</span>
-                        Gerar novamente
-                    </button>
-<button class="w-full sm:w-auto px-6 py-4 text-on-surface-variant font-label-md text-label-md rounded-full hover:bg-surface-variant/50 active:scale-95 transition-all">
-                        Limpar
-                    </button>
-</div>
-</div>
-</section>
 </main>
 <!-- BottomNavBar (Mobile Only) -->
 <script>

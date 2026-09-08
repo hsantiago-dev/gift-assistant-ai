@@ -82,7 +82,7 @@ Durante a chamada à Gemini, a HomeScreen DEVE exibir feedback visual de carrega
 - **THEN** o feedback de carregamento desaparece e o estado da tela reflete o resultado
 
 ### Requirement: Tratamento de erro com "Tentar novamente"
-Quando a chamada à Gemini falha (erro de rede, timeout ou erro da API), a HomeScreen DEVE exibir uma mensagem de erro amigável com um botão "Tentar novamente". Essa falha NÃO deve consumir tentativa de regeneração, pois erros de requisição são tratados como recuperáveis.
+Quando a chamada à Gemini falha (erro de rede, timeout ou erro da API), a HomeScreen DEVE exibir uma mensagem de erro amigável com um botão "Tentar novamente". Erros de requisição são tratados como recuperáveis.
 
 #### Scenario: Erro exibido com "Tentar novamente"
 - **WHEN** a chamada à Gemini falha por rede, timeout ou erro da API
@@ -90,7 +90,7 @@ Quando a chamada à Gemini falha (erro de rede, timeout ou erro da API), a HomeS
 
 #### Scenario: Tentar novamente re-dispara a chamada
 - **WHEN** o usuário pressiona "Tentar novamente" após uma falha
-- **THEN** a HomeScreen dispara novamente a chamada à Gemini com a mesma entrada, sem consumir tentativa de regeneração
+- **THEN** a HomeScreen dispara novamente a chamada à Gemini com a mesma entrada.
 
 ### Requirement: Estado local da entrada
 A HomeScreen DEVE manter em estado local o texto livre, o orçamento selecionado e a ocasião selecionada, permitindo que o usuário edite e alterne esses valores livremente.

@@ -41,7 +41,7 @@ O serviço DEVE enviar o prompt ao modelo Gemini via o cliente HTTP embutido no 
 
 #### Scenario: Falha na requisição
 - **WHEN** a chamada ao modelo falha (rede, timeout ou erro da API)
-- **THEN** o serviço propaga um erro tipado e a falha não consome tentativa de regeneração (o erro é tratado como "Tentar novamente" pelo chamador)
+- **THEN** o serviço propaga um erro tipado tratável (o erro é tratado como "Tentar novamente" pelo chamador)
 
 ### Requirement: Parsing e validação da resposta JSON
 O serviço DEVE fazer o parsing do texto JSON retornado pelo modelo em uma lista tipada de sugestões, validando o formato `[{nome, justificativa}]` e o número de itens. Cada sugestão DEVE ter campos `nome` (string) e `justificativa` (string) preenchidos.
