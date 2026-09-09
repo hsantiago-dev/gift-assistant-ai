@@ -21,6 +21,14 @@ Este projeto foi desenvolvido como trabalho de pós-graduação na disciplina de
 
 ---
 
+## Screenshots
+
+[![Tela inicial](/images/Screenshot_1.png)](/images/Screenshot_1.png) [![Estado de loading](/images/Screenshot_2.png)](/images/Screenshot_2.png)
+
+[![Estado de erro](/images/Screenshot_3.png)](/images/Screenshot_3.png) [![Resultados](/images/Screenshot_4.png)](/images/Screenshot_4.png)
+
+---
+
 ## Funcionalidades
 
 - **Entrada de texto livre** — o usuário descreve o que procura em frases naturais
@@ -96,8 +104,8 @@ EXPO_PUBLIC_GEMINI_API_KEY=sua_chave_gemini_aqui
 - [React Native](https://reactnative.dev/docs/getting-started)
 - [Google Gemini SDK](https://ai.google.dev/docs)
 - [Moti — Animações](https://moti.fabric.dev)
-- [Design System Candy](./docs/DESIGN.md)
-- [Especificação Funcional](./docs/OVERVIEW.md)
+- [Design System Candy](./.docs/DESIGN.md)
+- [Especificação Funcional](./.docs/OVERVIEW.md)
 
 ---
 
