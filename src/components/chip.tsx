@@ -1,7 +1,7 @@
 import { MotiView, useAnimationState } from 'moti';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
-import { DMSans, Radius, Spacing, tintedShadow } from '@/constants/theme';
+import { DMSans, Radius, tintedShadow } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 export type ChipProps = {
@@ -35,10 +35,13 @@ export function Chip({ label, selected, onPress }: ChipProps) {
         transition={{ type: 'spring', damping: 18, stiffness: 320 }}
         style={[
           styles.chip,
-          { backgroundColor: selected ? theme.primary : theme.backgroundElement },
+          {
+            backgroundColor: selected ? theme.primary : theme.surfaceCard,
+            borderColor: selected ? theme.primary : theme.outlineVariant,
+          },
           selected && tintedShadow(theme.primary),
         ]}>
-        <Text style={[styles.label, { color: selected ? '#ffffff' : theme.textSecondary }]}>
+        <Text style={[styles.label, { color: selected ? '#ffffff' : theme.text }]}>
           {label}
         </Text>
       </MotiView>
@@ -48,9 +51,10 @@ export function Chip({ label, selected, onPress }: ChipProps) {
 
 const styles = StyleSheet.create({
   chip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + Spacing.half,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: Radius.pill,
+    borderWidth: 1.5,
   },
   label: {
     fontFamily: DMSans.medium,

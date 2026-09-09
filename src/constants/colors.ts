@@ -24,6 +24,12 @@ export const Colors = {
     primary: CandyColors.Primary,
     secondary: CandyColors.Secondary,
     tertiary: CandyColors.Tertiary,
+    surfaceCard: '#ffffff',
+    outlineVariant: '#dcc8e0',
+    primaryContainer: '#f080c0',
+    onPrimaryContainer: '#2e1a28',
+    error: '#e53e3e',
+    errorContainer: '#ffe8e8',
   },
   dark: {
     text: '#f6ecff',
@@ -35,6 +41,12 @@ export const Colors = {
     primary: CandyColors.Primary,
     secondary: CandyColors.Secondary,
     tertiary: CandyColors.Tertiary,
+    surfaceCard: '#241c2a',
+    outlineVariant: '#4a3a52',
+    primaryContainer: '#8a2b6a',
+    onPrimaryContainer: '#f6ecff',
+    error: '#ff9a9a',
+    errorContainer: '#4a1e20',
   },
 } as const;
 

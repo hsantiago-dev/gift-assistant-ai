@@ -9,6 +9,7 @@ export { Colors, CandyColors, type ThemeColor, type CandyColorToken } from '@/co
 export { Spacing, BottomTabInset, MaxContentWidth } from '@/constants/spacing';
 export { Radius } from '@/constants/radius';
 export { tintedShadow } from '@/constants/shadows';
-export { Fonts, DMSans } from '@/constants/typography';
+export { Fonts, DMSans, Typography } from '@/constants/typography';
 export { BudgetOptions, OccasionOptions, type BudgetOption, type OccasionOption } from '@/constants/options';
 export { Placeholders } from '@/constants/placeholders';
+export { Copy } from '@/constants/copy';

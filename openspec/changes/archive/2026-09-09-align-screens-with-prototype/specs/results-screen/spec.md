@@ -1,10 +1,4 @@
-# results-screen Specification
-
-## Purpose
-
-Define o comportamento da tela de resultados (ResultsScreen) do Gift Assistant AI: exibir as sugestões de presentes retornadas pela Gemini em um carrossel de cards (ou card único) com design system "Candy", servindo de destino da navegação pós-geração na HomeScreen.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Exibição visual das sugestões em carrossel ou card único
 A ResultsScreen DEVE exibir as sugestões de presentes (lista tipada `GiftSuggestion[]` com `nome` e `justificativa`) recebidas da Gemini em formato de carrossel de cards (quando houver mais de 1 sugestão) ou card único centralizado (quando houver apenas 1 sugestão), utilizando o design system "Candy" e animações suaves via Moti. Cada card DEVE apresentar um badge numerado indicando a posição da sugestão, o nome e a justificativa, com gap interno de 16px. O indicador de slide DEVE manter o dot ativo expandido em formato pill via animação Moti.
@@ -25,19 +19,7 @@ A ResultsScreen DEVE exibir as sugestões de presentes (lista tipada `GiftSugges
 - **WHEN** a ResultsScreen é aberta sem uma lista válida de sugestões
 - **THEN** a tela exibe um estado vazio com mensagem amigável indicando que não há sugestões para mostrar
 
-### Requirement: Origem das sugestões via navegação
-A ResultsScreen DEVE receber as sugestões via parâmetros de rota a partir da navegação disparada pela HomeScreen após uma geração bem-sucedida.
-
-#### Scenario: Navegação com sugestões
-- **WHEN** a HomeScreen navega para a ResultsScreen após a geração ser bem-sucedida
-- **THEN** as sugestões retornadas são transmitidas e exibidas pela ResultsScreen
-
-### Requirement: Botão de ação fixo no rodapé
-A ResultsScreen DEVE exibir o botão "Voltar" em um rodapé fixo ao fim da tela, sempre visível independentemente da rolagem do conteúdo.
-
-#### Scenario: Botão fixo no rodapé
-- **WHEN** a ResultsScreen está aberta e o usuário rola o conteúdo
-- **THEN** o botão "Voltar" permanece fixo no fim da tela
+## ADDED Requirements
 
 ### Requirement: Cabeçalho da ResultsScreen
 A ResultsScreen DEVE exibir o cabeçalho "Ideias Perfeitas" com um subtítulo na cor Secondary descrevendo que as sugestões foram pensadas com base nas respostas do usuário.

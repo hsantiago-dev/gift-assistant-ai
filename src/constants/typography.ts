@@ -12,6 +12,18 @@ export const DMSans = {
 } as const;
 
 /**
+ * Estilos de tipografia do design system "Candy".
+ * `bodyLg` é usado em subtítulos e descrições de seção (18/28, medium).
+ */
+export const Typography = {
+  bodyLg: {
+    fontSize: 18,
+    lineHeight: 28,
+    fontFamily: DMSans.medium,
+  },
+} as const;
+
+/**
  * Compatível com o `Fonts` anterior do template (usado por `themed-text.tsx`).
  * `sans` passa a ser a DM Sans medium; os demais mantêm os system fonts
  * para não quebrar componentes existentes.

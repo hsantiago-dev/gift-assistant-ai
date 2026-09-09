@@ -1,6 +1,7 @@
 import { MotiView, useAnimationState } from 'moti';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
+import { GiftIcon, type GiftIconName } from '@/components/ui/gift-icon';
 import { DMSans, Radius, Spacing, tintedShadow } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
@@ -8,9 +9,10 @@ export type PrimaryButtonProps = {
   label: string;
   onPress: () => void;
   disabled?: boolean;
+  icon?: GiftIconName;
 };
 
-export function PrimaryButton({ label, onPress, disabled = false }: PrimaryButtonProps) {
+export function PrimaryButton({ label, onPress, disabled = false, icon }: PrimaryButtonProps) {
   const theme = useTheme();
 
   const animation = useAnimationState({
@@ -31,6 +33,8 @@ export function PrimaryButton({ label, onPress, disabled = false }: PrimaryButto
     }
   };
 
+  const labelColor = disabled ? theme.textSecondary : '#ffffff';
+
   return (
     <Pressable
       onPress={disabled ? undefined : onPress}
@@ -45,13 +49,8 @@ export function PrimaryButton({ label, onPress, disabled = false }: PrimaryButto
           { backgroundColor: disabled ? theme.backgroundElement : theme.primary },
           !disabled && tintedShadow(theme.primary),
         ]}>
-        <Text
-          style={[
-            styles.label,
-            { color: disabled ? theme.textSecondary : '#ffffff' },
-          ]}>
-          {label}
-        </Text>
+        {icon && <GiftIcon name={icon} size={20} color={labelColor} />}
+        <Text style={[styles.label, { color: labelColor }]}>{label}</Text>
       </MotiView>
     </Pressable>
   );
@@ -59,14 +58,16 @@ export function PrimaryButton({ label, onPress, disabled = false }: PrimaryButto
 
 const styles = StyleSheet.create({
   button: {
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
+    paddingHorizontal: 32,
+    paddingVertical: 18,
     borderRadius: Radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
+    gap: Spacing.two + Spacing.half,
   },
   label: {
     fontFamily: DMSans.bold,
-    fontSize: 16,
+    fontSize: 18,
   },
 });

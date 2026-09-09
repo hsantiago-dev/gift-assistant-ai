@@ -24,7 +24,7 @@ export function GiftCard({ nome, justificativa, index, height, onLayout }: GiftC
       style={[
         styles.card,
         { height },
-        { backgroundColor: theme.backgroundElement },
+        { backgroundColor: theme.surfaceCard },
         tintedShadow(theme.secondary, 0.15, 14),
       ]}>
       <View style={[styles.badge, { backgroundColor: theme.secondary }]}>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: 280,
     borderRadius: Radius.card,
     padding: Spacing.three,
-    gap: Spacing.two,
+    gap: Spacing.three,
     minHeight: 200,
   },
   badge: {

@@ -4,9 +4,9 @@
 
 - Ler as docs versionadas do **Expo SDK 57** antes de escrever qualquer código:
   https://docs.expo.dev/versions/v57.0.0/
-- Especificação funcional: `docs/OVERVIEW.md`
-- Design system: `docs/DESIGN.md`
-- Protótipos de referência (HTML): `docs/PROTOTYPE.md`
+- Especificação funcional: `.docs/OVERVIEW.md`
+- Design system: `.docs/DESIGN.md`
+- Protótipos de referência (HTML): `.docs/PROTOTYPE.md`
 
 ## Visão do produto
 
@@ -47,10 +47,10 @@ src/hooks/              → hooks compartilhados
 - Botões/chips/badges em formato **pill** (radius full); cards com radius 16–20px
 - Sombras **tingidas** com a cor do elemento (~15–20% opacidade), nunca cinza puro
 - Microinterações **bouncy/spring** via Moti (scale leve, ease-out) — nada rígido
-- Tokens completos: `docs/DESIGN.md`; referência visual das 2 telas + estados: `docs/PROTOTYPE.md`
+- Tokens completos: `.docs/DESIGN.md`; referência visual das 2 telas + estados: `.docs/PROTOTYPE.md`
 - Feedback visual obrigatório para: carregando e erro
 
 ## Segurança
 
 - `GEMINI_API_KEY` apenas em `.env` (fora do git); nunca hardcoded no código
-- Prompts canônicos definidos na seção 6.3 de `docs/OVERVIEW.md` — só alterar se necessário
+- Prompts canônicos definidos na seção 6.3 de `.docs/OVERVIEW.md` — só alterar se necessário

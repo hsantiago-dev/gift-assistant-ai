@@ -6,7 +6,7 @@ import { GiftCarousel } from '@/components/gift-carousel';
 import { PrimaryButton } from '@/components/primary-button';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { DMSans, MaxContentWidth, Spacing } from '@/constants/theme';
+import { Copy, DMSans, MaxContentWidth, Spacing, Typography } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import type { GiftSuggestion } from '@/services/gemini';
 
@@ -24,11 +24,9 @@ export default function ResultsScreen() {
   const contentPlatformStyle = Platform.select({
     android: {
       paddingTop: insets.top,
-      paddingLeft: insets.left,
-      paddingRight: insets.right,
     },
     web: {
-      paddingTop: Spacing.six,
+      paddingTop: Spacing.four,
     },
   });
 
@@ -66,14 +64,19 @@ export default function ResultsScreen() {
         style={styles.scrollView}
         contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
         <ThemedView style={styles.container}>
-          <ThemedText style={styles.title} themeColor="text">
-            Sugestões de Presentes
-          </ThemedText>
+          <View style={styles.header}>
+            <ThemedText style={[styles.title, { color: theme.primary }]}>
+              {Copy.results.title}
+            </ThemedText>
+            <ThemedText style={[Typography.bodyLg, { color: theme.secondary }]}>
+              {Copy.results.subtitle}
+            </ThemedText>
+          </View>
 
           {!params.suggestions || parseError || !hasValidSuggestions ? (
             <ThemedView style={styles.emptyContainer}>
               <ThemedText style={styles.emptyText} themeColor="textSecondary">
-                Nenhuma sugestão encontrada ou dados inválidos. Volte e tente gerar novamente.
+                {Copy.results.empty}
               </ThemedText>
             </ThemedView>
           ) : (
@@ -85,7 +88,7 @@ export default function ResultsScreen() {
       <View style={[styles.footer, { backgroundColor: theme.background }, footerPlatformStyle]}>
         <View style={styles.footerInner}>
           <PrimaryButton
-            label="Voltar"
+            label={Copy.results.back}
             onPress={() => router.back()}
           />
         </View>
@@ -103,20 +106,26 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
+    paddingBottom: Spacing.four,
   },
   container: {
     maxWidth: MaxContentWidth,
     width: '100%',
     alignSelf: 'center',
-    gap: Spacing.three,
+    gap: Spacing.sectionGap,
     paddingVertical: Spacing.four,
     paddingHorizontal: Spacing.four,
     flex: 1,
+  },
+  header: {
+    alignItems: 'center',
+    gap: Spacing.two,
   },
   title: {
     fontSize: 28,
     fontFamily: DMSans.bold,
     lineHeight: 36,
+    textAlign: 'center',
   },
   emptyContainer: {
     gap: Spacing.three,

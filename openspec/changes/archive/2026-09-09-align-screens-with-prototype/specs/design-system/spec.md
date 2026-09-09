@@ -1,10 +1,4 @@
-# design-system Specification
-
-## Purpose
-
-Define os tokens e convenções visuais do design system "Candy" — cores, tipografia, raio, espaçamento e sombras — que padronizam a aparência de todas as telas do Gift Assistant AI, garantindo consistência visual entre HomeScreen e ResultsScreen e futuras evoluções.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Paleta de cores Candy
 A aplicação DEVE expor uma paleta de cores com os seguintes tokens primários: Primary `#e040a0` (ações primárias/identidade), Secondary `#7c52aa` (elementos secundários/etiquetas), Tertiary `#0096cc` (informacional/links/destaques) e Background `#fef7ff` (fundo). A paleta DEVE incluir variantes de estado necessárias (erro/aviso) e cores derivadas para sombras tingidas. A aplicação DEVE expor tokens de erro: `error` (`#e53e3e`) e `error-container` (`#ffe8e8`), usados nos estados de falha das telas.
@@ -32,17 +26,6 @@ A aplicação DEVE carregar e expor a fonte DM Sans com pesos definidos: bold pa
 - **WHEN** uma tela exibe o subtítulo de uma seção
 - **THEN** o texto usa o estilo `body-lg` (18px/28px, medium)
 
-### Requirement: Raio de borda (pill e cards)
-A aplicação DEVE expor tokens de raio de borda: raio completo (pill/full) para botões, chips, badges e inputs; e raio de 16–20px para cards. Nenhum elemento deve usar cantos totalmente retos.
-
-#### Scenario: Botões e chips em formato pill
-- **WHEN** um botão, chip, badge ou input é renderizado
-- **THEN** ele usa raio de borda completo (pill)
-
-#### Scenario: Cards com raio arredondado
-- **WHEN** um card é renderizado
-- **THEN** ele usa raio de borda entre 16 e 20px
-
 ### Requirement: Espaçamento escalonado
 A aplicação DEVE expor uma escala de espaçamento consistente (half, one, two, three, four, five, six) para uso em telas e componentes, garantindo ritmo visual uniforme. A escala DEVE incluir um token de espaçamento de seção (`section-gap`, 40px) para separar as seções principais de uma tela.
 
@@ -54,23 +37,7 @@ A aplicação DEVE expor uma escala de espaçamento consistente (half, one, two,
 - **WHEN** uma tela separa seções principais (ex.: cabeçalho, campo de texto, chips)
 - **THEN** o token `section-gap` (40px) está disponível para ser usado nessa separação
 
-### Requirement: Sombras tingidas
-A aplicação DEVE aplicar sombras tingidas com a cor do próprio elemento, em opacidade de 15–20%, em vez de sombras cinza puro.
-
-#### Scenario: Sombra de botão primário
-- **WHEN** um botão primário rosa é renderizado
-- **THEN** sua sombra utiliza uma cor derivada do Primary `#e040a0` em ~15–20% de opacidade
-
-#### Scenario: Sombra de card
-- **WHEN** um card branco é renderizado
-- **THEN** sua sombra utiliza uma cor tingida (não cinza puro) em ~15–20% de opacidade
-
-### Requirement: Base de animações (Moti)
-A aplicação DEVE dispor de uma base configurada para microinterações via Moti, com suporte a transições bouncy/spring e ease-out, a ser consumida pelas telas (loading, entrada de cards, troca no carrossel).
-
-#### Scenario: Dependência e configuração disponíveis
-- **WHEN** uma tela importa a biblioteca de animação
-- **THEN** a base de animações (Moti) está instalada e pronta para uso com curvas bouncy/ease-out
+## ADDED Requirements
 
 ### Requirement: Cards de superfície para entradas
 A aplicação DEVE apresentar o campo de texto e os grupos de chips (Orçamento e Ocasião) da HomeScreen dentro de cards de superfície clara com sombra tingida, cada grupo de chips com um cabeçalho composto por ícone e rótulo.
