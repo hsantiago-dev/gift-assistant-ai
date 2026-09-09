@@ -23,9 +23,9 @@ Este projeto foi desenvolvido como trabalho de pós-graduação na disciplina de
 
 ## Screenshots
 
-[![Tela inicial](/images/Screenshot_1.png)](/images/Screenshot_1.png) [![Estado de loading](/images/Screenshot_2.png)](/images/Screenshot_2.png)
+[<img src="/hsantiago-dev/gift-assistant-ai/raw/main/images/Screenshot_1.png" width="250" alt="Tela inicial">](/hsantiago-dev/gift-assistant-ai/blob/main/images/Screenshot_1.png) [<img src="/hsantiago-dev/gift-assistant-ai/raw/main/images/Screenshot_2.png" width="250" alt="Estado de loading">](/hsantiago-dev/gift-assistant-ai/blob/main/images/Screenshot_2.png)
 
-[![Estado de erro](/images/Screenshot_3.png)](/images/Screenshot_3.png) [![Resultados](/images/Screenshot_4.png)](/images/Screenshot_4.png)
+[<img src="/hsantiago-dev/gift-assistant-ai/raw/main/images/Screenshot_3.png" width="250" alt="Estado de erro">](/hsantiago-dev/gift-assistant-ai/blob/main/images/Screenshot_3.png) [<img src="/hsantiago-dev/gift-assistant-ai/raw/main/images/Screenshot_4.png" width="250" alt="Resultados">](/hsantiago-dev/gift-assistant-ai/blob/main/images/Screenshot_4.png)
 
 ---
 
